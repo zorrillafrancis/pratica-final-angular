@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="form-group">
+        <label for="exampleInputEmail1">Gasto/Ingreso</label>
+        <select class="form-control" [(ngModel)]="data.tipo">
+            <option value="1">Gasto</option>
+            <option value="2">Ingreso</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Descripcion</label>
+        <select class="form-control" (change)="findMonto()" [(ngModel)]="data.conceptoId">
+            <option value="0">Seleccionar</option>
+            <option [value]="m.id" *ngFor="let m of dataProducto">{{m.descripcion}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Monto</label>
+        <input type="number" class="form-control" [(ngModel)]="data.monto">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Cantidad</label>
+        <input type="number" class="form-control" [disabled]="data.tipo==2" [(ngModel)]="data.cantidad">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Descripcion</label>
+        <textarea type="number" class="form-control" [(ngModel)]="data.descripcion"></textarea>
+    </div>
+
+    <button type="button" class="btn btn-success mt-2" (click)="save()">Registrar</button> &nbsp;
+    <button type="button" class="btn btn-primary mt-2" (click)="clear()">Limpiar</button> &nbsp;
+</div>
+
+<div class="container mt-2">
+    <div class="form-group">
+        <div class="list-group">
+            <label>Listado de Gastos e Ingresos</label>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"><input type="text" class="form-control" placeholder="Buscar..." (keyup)="find()"
+                                [(ngModel)]="findText"></th>
+                    </tr>
+                </thead>
+            </table>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Concepto</th>
+                        <th scope="col">Monto</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Descripcion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let m of dataListFind">
+                        <td>{{m.id}}</td>
+                        <td>{{m.tipo == 1 ? 'Gasto' : 'Ingreso'}}</td>
+                        <td>{{m.concepto}}</td>
+                        <td>
+                            <i class="fa fa-angle-down" aria-hidden="true" style="color: red" *ngIf="m.tipo == 1"></i>
+                            <i class="fa fa-angle-up" aria-hidden="true" style="color: green" *ngIf="m.tipo == 2"></i>
+                            {{(m.tipo == 1 ? '-' : '') + (m.monto | currency)}}
+                        </td>
+                        <td>{{(m.fecha | date:'dd/MM/yyyy')}}</td>
+                        <td>{{m.descripcion}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

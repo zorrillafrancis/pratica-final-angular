@@ -1,0 +1,36 @@
+<div class="container mt-2">
+    <div class="form-group">
+        <div class="list-group">
+            <label>Listado de Gastos e Ingresos (Agrupados)</label>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"><input type="text" class="form-control" placeholder="Buscar..." (keyup)="find()"
+                                [(ngModel)]="findText"></th>
+                    </tr>
+                </thead>
+            </table>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Monto</th>
+                        <th scope="col">Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let m of dataListFind">
+                        <td>{{m.tipo == 1 ? 'Gasto' : 'Ingreso'}}</td>
+                        <td>
+                            <i class="fa fa-angle-down" aria-hidden="true" style="color: red" *ngIf="m.tipo == 1"></i>
+                            <i class="fa fa-angle-up" aria-hidden="true" style="color: green" *ngIf="m.tipo == 2"></i>
+                            {{(m.tipo == 1 ? '-' : '') + (m.monto | currency)}}
+                        </td>
+                        <td>{{m.fecha}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+
+<div class="container">
+    <div class="card-container">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Descripcion</label>
+            <input type="text" class="form-control" [(ngModel)]="singleData.descripcion">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Monto</label>
+            <input type="number" class="form-control" [(ngModel)]="singleData.monto">
+        </div>
+
+        <button type="button" class="btn btn-success mt-2" (click)="save()">Guardar</button> &nbsp;
+        <button type="button" class="btn btn-primary mt-2" (click)="clear()">Limpiar</button> &nbsp;
+        <button type="button" class="btn btn-danger mt-2" (click)="delete()" *ngIf="singleData.id > 0">Eliminar</button>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="card-container">
+        <div class="col-md-4">
+            <div class="form-group">
+                <div class="list-group">
+                    <div class="list-group-item list-group-item-action" *ngFor="let m of data" (click)="setProducto(m)"
+                        style="cursor: pointer">{{m.descripcion}}
+                        <div>${{m.monto}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
